@@ -1,0 +1,26 @@
+{
+  "name": "getrecentsong",
+  "version": "1.0.0",
+  "description": "An app to get the song you're current listening to",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint src/js",
+    "test": "echo \"Error: no test specified\"",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files",
+    "start": "npm run lint && npm run test && npm run build && node dist/index.js"
+  },
+  "author": "Ryan Krol",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "express": "^4.16.4"
+  },
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.17.2",
+    "rimraf": "^2.6.3"
+  }
+}
