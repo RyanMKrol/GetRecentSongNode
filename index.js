@@ -1,17 +1,16 @@
-import LastFmApi from './src/js/LastFmApi'
+import axios from 'axios'
+import config from './config.json'
 
-const express = require('express')
-const app = express();
+const username = config.username
+const apiKey = config.apiKey
 
-app.get('/:apiKey/:userId', (req, res) => {
-  const api = new LastFmApi(req.params.apiKey, req.params.userId)
-  api.fetchCurrentSong().then((data) => {
-    res.send(data)
-  }).catch((error) => {
-    res.send(error.message)
-  })
-});
+const apiUrl = `http://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${username}&api_key=${apiKey}&format=json`
 
-app.listen(8000, () => {
-  console.log('Example app listening on port 8000!')
-});
+axios.get(apiUrl).then((data) => {
+  const songName = data.data.recenttracks.track[0].name
+  const artistName = data.data.recenttracks.track[0].artist['#text']
+
+  console.log(`//  Song: "${songName}" - "${artistName}"`)
+}).catch(() => {
+  throw new Error('Could not get a response from SongKick')
+})
